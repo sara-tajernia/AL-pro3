@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f425106a-526c-4911-bc8a-b0fe32aee0b2" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="1u1ULJNWVKmAozobT6oudeoqJ9G" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RunManager">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="Al_P3" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f425106a-526c-4911-bc8a-b0fe32aee0b2" name="Default Changelist" comment="" />
+      <created>1623832532840</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1623832532840</updated>
+      <workItem from="1623832548439" duration="108000" />
+      <workItem from="1623832760663" duration="760000" />
+      <workItem from="1623833555030" duration="175000" />
+      <workItem from="1623839465038" duration="1728000" />
+      <workItem from="1623841273513" duration="1367000" />
+      <workItem from="1623843133463" duration="1622000" />
+      <workItem from="1623924245272" duration="1755000" />
+      <workItem from="1623926050609" duration="1708000" />
+      <workItem from="1623927875554" duration="77000" />
+      <workItem from="1623933538086" duration="1692000" />
+      <workItem from="1623935246663" duration="347000" />
+      <workItem from="1624004553665" duration="1577000" />
+      <workItem from="1626505871327" duration="424000" />
+      <workItem from="1626506642066" duration="1572000" />
+      <workItem from="1626509338919" duration="325000" />
+      <workItem from="1626510544785" duration="703000" />
+      <workItem from="1626511268917" duration="1000" />
+      <workItem from="1626511282745" duration="469000" />
+      <workItem from="1626511790642" duration="1284000" />
+      <workItem from="1626513090044" duration="1671000" />
+      <workItem from="1626518334999" duration="851000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Al_P3$main.coverage" NAME="main Coverage Results" MODIFIED="1626518893597" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
