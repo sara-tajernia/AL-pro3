@@ -53,9 +53,8 @@ class Game:
         for i in range(self.dimension):
             for j in range(self.dimension):
                 if len(self.heuristic[i][j]) == 1 and self.table[i][j] == '-':
-                    table[i][j] = self.heuristic[i][j]
+                    table[i][j] = str(self.heuristic[i][j][0])
                     print(table[i][j], i, j)
-                    table
 
     def error(self):
         for i in range(self.dimension):
@@ -75,9 +74,9 @@ class Game:
             count_one = 0
             count_zero = 0
             for j in range(self.dimension):
-                if table[i][j] == 1:
+                if table[i][j] == '1':
                     count_one += 1
-                if table[i][j] == 0:
+                if table[i][j] == '0':
                     count_zero += 1
             if count_one != count_zero:
                 return False
@@ -91,7 +90,34 @@ class Game:
                     count_zero += 1
             if count_one != count_zero:
                 return False
-    
+        '''
+        for the rule that each row and column should have unique strings
+        '''
+        strings_row = []
+        strings_column = []
+        for i in range(self.dimension):  # all rows are copied in strings_row
+            table_copy = table[i]
+            table_copy = ''.join(table_copy)
+            strings_row.append(table_copy)
+        while len(strings_row) > 0:  # check if there is a repeated string in rows
+            element = strings_row.pop(0)
+            print(strings_row, "before")
+            if '-' not in element and element in strings_row:
+                strings_row = []
+                print("tekrari")
+                return False
+        for j in range(self.dimension):  # all columns are copied in strings_column
+            table_copy = [row[j] for row in table]
+            table_copy = ''.join(table_copy)
+            strings_column.append(table_copy)
+        while len(strings_row) > 0:  # check if there is a repeated string in columns
+            element = strings_row.pop(0)
+            print(strings_row, "before")
+            if '-' not in element and element in strings_row:
+                strings_row = []
+                print("tekrari")
+                return False
+
 
 if __name__ == '__main__':
     table, heuristic = scan()
@@ -99,3 +125,4 @@ if __name__ == '__main__':
     game.h()
     game.error()
     game.MRV()
+    game.rules()
