@@ -1,5 +1,10 @@
+"""
+function for getting the input
+"""
+
+
 def scan():
-    f = open('puzzle1.txt', "r")
+    f = open('puzzle2.txt', "r")
     coordination = f.readline()
     x, y = map(int, coordination.split())
     table = [[0 for i in range(y)] for j in range(x)]
@@ -13,6 +18,22 @@ def scan():
     return table, heuristic
 
 
+def terminal(table):
+    strings_row = []
+    for i in range(len(table)):  # all rows are copied in strings_row
+        table_copy = table[i]
+        table_copy = ''.join(table_copy)
+        strings_row.append(table_copy)
+    for j in range(len(table)):
+        print(strings_row[j])
+    print('\n\n\n')
+
+
+'''
+a class for rules , heuristic and filling the table
+'''
+
+
 class Game:
     def __init__(self, table, heuristic):
         self.table = table
@@ -20,9 +41,14 @@ class Game:
         self.dimension = len(table)
 
     def h(self):
+        if not self.error():
+            exit(0)
+        strings_row = []
+        strings_column = []
         for i in range(self.dimension):
             for j in range(self.dimension):
                 if self.table[i][j] == '1':
+                    terminal(self.table)
                     self.heuristic[i][j] = [1]
                     if j < self.dimension - 1 and self.table[i][j + 1] == '1':
                         if j > 0 and 1 in self.heuristic[i][j - 1]:
@@ -31,7 +57,6 @@ class Game:
                             self.heuristic[i][j + 2].remove(1)
                     if i < self.dimension - 1 and self.table[i + 1][j] == '1':
                         if i > 0 and 1 in self.heuristic[i - 1][j]:
-                            # print(i, j, heuristic[i][j])
                             self.heuristic[i - 1][j].remove(1)
                         if i < self.dimension - 2 and 1 in self.heuristic[i + 2][j]:
                             self.heuristic[i + 2][j].remove(1)
@@ -63,39 +88,91 @@ class Game:
                         self.heuristic[i][j + 1].remove(0)
                     if j > 1 and self.table[i][j - 2] == '0' and 0 in self.heuristic[i][j - 1]:
                         self.heuristic[i][j - 1].remove(0)
-        # for i in range(self.dimension):
-        #     for j in range(self.dimension):
 
-        print(heuristic)
+        '''
+        for having same count for zeros and ones in each row and column
+        '''
+        for i in range(self.dimension):
+            counter = 0
+            count_one = 0
+            count_zero = 0
+            x = y = -1
+            for j in range(self.dimension):
+                if self.table[i][j] == '-':
+                    counter += 1
+                    x = i
+                    y = j
+                if self.table[i][j] == '1':
+                    count_one += 1
+                if self.table[i][j] == '0':
+                    count_zero += 1
+            if counter == 1:
+                if count_one - count_zero == 1 and 1 in self.heuristic[x][y]:
+                    self.heuristic[x][y].remove(1)
+                if count_zero - count_one == 1 and 0 in self.heuristic[x][y]:
+                    self.heuristic[x][y].remove(0)
+        for i in range(self.dimension):
+            counter = 0
+            count_one = 0
+            count_zero = 0
+            x = y = -1
+            for j in range(self.dimension):
+                if self.table[j][i] == '-':
+                    counter += 1
+                    x = i
+                    y = j
+                if self.table[j][i] == '1':
+                    count_one += 1
+                if self.table[j][i] == '0':
+                    count_zero += 1
+            if counter == 1:
+                if count_one - count_zero == 1 and 1 in self.heuristic[y][x]:
+                    self.heuristic[y][x].remove(1)
+                if count_zero - count_one == 1 and 0 in self.heuristic[y][x]:
+                    self.heuristic[y][x].remove(0)
+        # print(heuristic)
 
     def MRV_backTrack(self):
         print(self.table)
+        # i = j = 0
         for i in range(self.dimension):
             for j in range(self.dimension):
                 if len(self.heuristic[i][j]) == 1 and self.table[i][j] == '-':
                     self.table[i][j] = str(self.heuristic[i][j][0])
                     self.h()
-                    print(self.table[i][j], i, j)
+                    terminal(self.table)
                     if not game.rules():
                         print("❌ ERROR ❌")
+                        terminal(self.table)
                         exit(0)
+                    self.MRV_backTrack()
         for i in range(self.dimension):
             for j in range(self.dimension):
                 if self.table[i][j] == '-':
+                    if not self.error():
+                        terminal(self.table)
+                        exit(0)
                     self.table[i][j] = str(self.heuristic[i][j][0])
+                    print("twoooo")
+                    # print(self.table)
+                    terminal(self.table)
                     if not game.rules():
                         print(self.heuristic[i][j][0], "checkk", i, j)
                         self.heuristic[i][j].remove(self.heuristic[i][j][0])
                         self.table[i][j] = '-'
                         self.h()
                         self.MRV_backTrack()
+                    self.h()
+                    self.MRV_backTrack()
         return self.table
 
     def error(self):
         for i in range(self.dimension):
             for j in range(self.dimension):
-                if not self.heuristic[i][j]:
+                if len(self.heuristic[i][j]) < 1:
                     print('❌ ERROR ❌')
+                    return False
+        return  True
 
     def complete(self):
         for i in range(self.dimension):
@@ -184,5 +261,5 @@ if __name__ == '__main__':
     game.h()
     game.error()
     table = game.MRV_backTrack()
-    print(table)
-    # game.rules()
+    # print(table)
+    terminal(table)
