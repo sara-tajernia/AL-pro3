@@ -17,6 +17,11 @@ def scan():
     return table, heuristic
 
 
+'''
+print the table each time
+'''
+
+
 def terminal(table):
     strings_row = []
     for i in range(len(table)):  # all rows are copied in strings_row
@@ -38,6 +43,12 @@ class Game:
         self.table = table
         self.heuristic = heuristic
         self.dimension = len(table)
+
+    '''
+    a function to check rules and change the domains of blocks
+    if there two ones or zeros in row it change the domain for next block
+    if a row or column is one to full it check the equality between ones and zeros and update the domain
+    '''
 
     def h(self):
         if not self.error():
@@ -130,6 +141,11 @@ class Game:
                     self.heuristic[y][x].remove(0)
         # print(heuristic)
 
+    '''
+    backtrack algorithm with MRV checking 
+    each time update the heuristic of each block
+    '''
+
     def MRV_backTrack(self):
         for i in range(self.dimension):
             for j in range(self.dimension):
@@ -158,13 +174,21 @@ class Game:
                     self.MRV_backTrack()
         return self.table
 
+    '''
+    check if it has an error and cant continue
+    '''
+
     def error(self):
         for i in range(self.dimension):
             for j in range(self.dimension):
                 if len(self.heuristic[i][j]) < 1:
                     print('❌ ERROR ❌')
                     return False
-        return  True
+        return True
+
+    '''
+    check if the algorithm is finished and the puzzle is complete
+    '''
 
     def complete(self):
         for i in range(self.dimension):
@@ -172,6 +196,11 @@ class Game:
                 if self.table[i][j] == '-':
                     return False
         return True
+
+    '''
+    check all the rules
+    if any of them is broken returns false esle returns true
+    '''
 
     def rules(self):
         strings_row = []
@@ -243,6 +272,9 @@ class Game:
         return True
 
 
+'''
+use the class and functions to get the answer
+'''
 if __name__ == '__main__':
     table, heuristic = scan()
     game = Game(table, heuristic)
