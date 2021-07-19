@@ -49,12 +49,16 @@ class Game:
                             heuristic[i + 2][j].remove(0)
         print(heuristic)
 
-    def MRV(self):
+    def MRV_backTrack(self):
         for i in range(self.dimension):
             for j in range(self.dimension):
                 if len(self.heuristic[i][j]) == 1 and self.table[i][j] == '-':
                     table[i][j] = str(self.heuristic[i][j][0])
                     print(table[i][j], i, j)
+                    if not game.rules():
+                        print("❌ ERROR ❌")
+                        return -1
+
 
     def error(self):
         for i in range(self.dimension):
@@ -70,35 +74,26 @@ class Game:
         return True
 
     def rules(self):
-        for i in range(self.dimension):  # each row should have equal zeros and ones
-            count_one = 0
-            count_zero = 0
-            for j in range(self.dimension):
-                if table[i][j] == '1':
-                    count_one += 1
-                if table[i][j] == '0':
-                    count_zero += 1
-            if count_one != count_zero:
-                return False
-        for i in range(self.dimension):  # each column should have equal zeros and ones
-            count_one = 0
-            count_zero = 0
-            for j in range(self.dimension):
-                if table[j][i] == 1:
-                    count_one += 1
-                if table[j][i] == 0:
-                    count_zero += 1
-            if count_one != count_zero:
-                return False
-        '''
-        for the rule that each row and column should have unique strings
-        '''
         strings_row = []
         strings_column = []
         for i in range(self.dimension):  # all rows are copied in strings_row
             table_copy = table[i]
             table_copy = ''.join(table_copy)
             strings_row.append(table_copy)
+
+        for i in range(self.dimension):  # each row should have equal zeros and ones
+            count_one = 0
+            count_zero = 0
+            if '-' not in strings_row[i]:
+                for j in range(self.dimension):
+                    if table[i][j] == '1':
+                        count_one += 1
+                    if table[i][j] == '0':
+                        count_zero += 1
+                if count_one != count_zero:
+                    print("rid")
+                    return False
+
         while len(strings_row) > 0:  # check if there is a repeated string in rows
             element = strings_row.pop(0)
             print(strings_row, "before")
@@ -106,18 +101,50 @@ class Game:
                 strings_row = []
                 print("tekrari")
                 return False
+
         for j in range(self.dimension):  # all columns are copied in strings_column
             table_copy = [row[j] for row in table]
             table_copy = ''.join(table_copy)
             strings_column.append(table_copy)
-        while len(strings_row) > 0:  # check if there is a repeated string in columns
-            element = strings_row.pop(0)
-            print(strings_row, "before")
-            if '-' not in element and element in strings_row:
-                strings_row = []
+
+        for i in range(self.dimension):  # each column should have equal zeros and ones
+            count_one = 0
+            count_zero = 0
+            if '-' not in strings_column[i]:
+                for j in range(self.dimension):
+                    if table[j][i] == '1':
+                        count_one += 1
+                    if table[j][i] == '0':
+                        count_zero += 1
+                if count_one != count_zero:
+                    print("riiiiid")
+                    return False
+
+        while len(strings_column) > 0:  # check if there is a repeated string in columns
+            element = strings_column.pop(0)
+            print(strings_column, "before")
+            if '-' not in element and element in strings_column:
+                strings_column = []
                 print("tekrari")
                 return False
-
+        '''
+        for the not three same number in a row rule 
+        '''
+        for i in range(self.dimension):
+            for j in range(self.dimension):
+                if i + 2 < self.dimension:
+                    if table[i][j] == table[i + 1][j] == table[i + 2][j]:
+                        return False
+                if i - 2 >= 0:
+                    if table[i][j] == table[i - 1][j] == table[i - 2][j]:
+                        return False
+                if j + 2 < self.dimension:
+                    if table[i][j] == table[i][j + 1] == table[i][j + 2]:
+                        return False
+                if j - 2 >= 0:
+                    if table[i][j] == table[i][j - 1] == table[i][j - 2]:
+                        return False
+        return True
 
 if __name__ == '__main__':
     table, heuristic = scan()
