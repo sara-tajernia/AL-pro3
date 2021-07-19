@@ -4,7 +4,7 @@ function for getting the input
 
 
 def scan():
-    f = open('puzzle2.txt', "r")
+    f = open('puzzle4.txt', "r")
     coordination = f.readline()
     x, y = map(int, coordination.split())
     table = [[0 for i in range(y)] for j in range(x)]
@@ -14,7 +14,6 @@ def scan():
         for j in range(y):
             table[i][j] = data[j]
             heuristic[i][j] = [0, 1]
-    print(table)
     return table, heuristic
 
 
@@ -48,7 +47,6 @@ class Game:
         for i in range(self.dimension):
             for j in range(self.dimension):
                 if self.table[i][j] == '1':
-                    terminal(self.table)
                     self.heuristic[i][j] = [1]
                     if j < self.dimension - 1 and self.table[i][j + 1] == '1':
                         if j > 0 and 1 in self.heuristic[i][j - 1]:
@@ -133,8 +131,6 @@ class Game:
         # print(heuristic)
 
     def MRV_backTrack(self):
-        print(self.table)
-        # i = j = 0
         for i in range(self.dimension):
             for j in range(self.dimension):
                 if len(self.heuristic[i][j]) == 1 and self.table[i][j] == '-':
@@ -143,7 +139,6 @@ class Game:
                     terminal(self.table)
                     if not game.rules():
                         print("❌ ERROR ❌")
-                        terminal(self.table)
                         exit(0)
                     self.MRV_backTrack()
         for i in range(self.dimension):
@@ -153,11 +148,8 @@ class Game:
                         terminal(self.table)
                         exit(0)
                     self.table[i][j] = str(self.heuristic[i][j][0])
-                    print("twoooo")
-                    # print(self.table)
                     terminal(self.table)
                     if not game.rules():
-                        print(self.heuristic[i][j][0], "checkk", i, j)
                         self.heuristic[i][j].remove(self.heuristic[i][j][0])
                         self.table[i][j] = '-'
                         self.h()
@@ -199,7 +191,6 @@ class Game:
                     if self.table[i][j] == '0':
                         count_zero += 1
                 if count_one != count_zero:
-                    print("rid wtf")
                     return False
 
         while len(strings_row) > 0:  # check if there is a repeated string in rows
@@ -207,7 +198,6 @@ class Game:
             # print(strings_row, "before")
             if '-' not in element and element in strings_row:
                 strings_row = []
-                print("tekrari")
                 return False
 
         for j in range(self.dimension):  # all columns are copied in strings_column
@@ -225,7 +215,6 @@ class Game:
                     if self.table[j][i] == '0':
                         count_zero += 1
                 if count_one != count_zero:
-                    print("riiiiid")
                     return False
 
         while len(strings_column) > 0:  # check if there is a repeated string in columns
@@ -233,7 +222,6 @@ class Game:
             # print(strings_column, "before")
             if '-' not in element and element in strings_column:
                 strings_column = []
-                print("tekrari")
                 return False
         '''
         for the not three same number in a row rule 
@@ -261,5 +249,4 @@ if __name__ == '__main__':
     game.h()
     game.error()
     table = game.MRV_backTrack()
-    # print(table)
     terminal(table)
